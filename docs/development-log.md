@@ -1,5 +1,15 @@
 # Development Log
 
+## October 30, 2026: Part 1
+
+- Installed Temurin Java 25.0.5 and generated Spring Boot 4.1.2 with Maven Wrapper.
+- Added local PostgreSQL Compose configuration and a Flyway bootstrap migration.
+- Added an integration test verifying migrated database content.
+- Java compilation succeeded; integration tests failed on database connection.
+- Docker Desktop crashed during startup. Stopped all launch attempts at Danny's
+  request. Database startup and runtime health remain unverified.
+- See backend-foundation.md for run instructions and the three-part scope.
+
 ## September 21, 2026
 
 ### Repository and environment
