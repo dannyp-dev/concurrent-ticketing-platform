@@ -2,6 +2,12 @@
 
 The customer-facing frontend for Concurrent Ticketing Platform.
 
+API mode is the default. Configure TICKETING_API_URL using .env.example.
+Set TICKETING_DATA_SOURCE=demo for the standalone prototype.
+The server-only src/lib/catalog.ts client maps API cents and event timezones
+into display data. API failures show retry UI instead of demo fallback.
+Checkout and order lookup in API mode await Part 3.
+
 ## Commands
 
 ```bash
@@ -38,6 +44,6 @@ src/
 
 ## Backend integration rule
 
-Replace the mock functions in `src/lib/events.ts` with a typed HTTP client while
-keeping PostgreSQL and the Spring Boot service authoritative. Browser selection
-state must never be used as proof that a seat is held or reserved.
+The typed client in src/lib/catalog.ts owns browsing reads. The mock functions
+in src/lib/events.ts remain for explicit demo mode and artwork metadata.
+Browser selection state must never be used as proof that a seat is held.

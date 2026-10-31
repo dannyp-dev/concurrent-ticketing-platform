@@ -12,7 +12,7 @@ export type TicketEvent = {
   city: string;
   description: string;
   priceFrom: number;
-  availability: "Selling fast" | "Good availability" | "Limited seats";
+  availability: "Selling fast" | "Good availability" | "Limited seats" | "View seat map";
   accent: string;
   secondary: string;
   visual: "rings" | "wave" | "court" | "prism";

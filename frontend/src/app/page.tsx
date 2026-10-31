@@ -2,9 +2,12 @@ import Link from "next/link";
 import { ArrowRightIcon, CalendarIcon, MapPinIcon, ShieldIcon } from "@/components/icons";
 import { EventExplorer } from "@/components/event-explorer";
 import { EventVisual } from "@/components/event-visual";
-import { events, formatCurrency } from "@/lib/events";
+import { formatCurrency } from "@/lib/events";
+import { listCatalogEvents } from "@/lib/catalog";
 
-export default function Home() {
+export default async function Home() {
+  const events = await listCatalogEvents();
+  if (!events.length) return <main className="empty-state shell"><h1>More events are on the way.</h1><p>Check back soon.</p></main>;
   const featured = events.find((event) => event.featured) ?? events[0];
 
   return (
@@ -39,7 +42,7 @@ export default function Home() {
       <div className="trust-strip">
         <div className="shell trust-grid">
           <span><ShieldIcon />Secure checkout</span>
-          <span><span className="pulse-dot" />Live seat availability</span>
+          <span><span className="pulse-dot" />Seat availability</span>
           <span>Upfront pricing</span>
           <span>Mobile tickets</span>
         </div>

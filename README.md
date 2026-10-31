@@ -3,9 +3,15 @@
 A full-stack ticket reservation project built to explore concurrency, database
 correctness, and performance through a realistic customer experience.
 
-The repository currently contains the complete interactive frontend prototype.
-The Spring Boot reservation service and PostgreSQL database will be added next,
-after the domain model is discussed and agreed upon.
+The repository contains a frontend and a Spring Boot read-only event catalog.
+Part 1 foundation is committed as 9103ea8. Part 2 adds the read API and frontend
+integration. PostgreSQL runtime verification remains pending because Docker
+Desktop crashes on this machine. Do not launch Docker without Danny's explicit
+request.
+
+See [catalog API and setup](docs/catalog-api.md) and
+[foundation status](docs/backend-foundation.md). Reservation mutations are Part 3
+and require Danny's go-ahead.
 
 ## Current structure
 
@@ -31,6 +37,10 @@ npm run dev
 ```
 
 Open `http://localhost:3000`.
+
+API mode is the default and requires Spring Boot on port 8080.
+Copy frontend/.env.example to frontend/.env.local to configure the origin.
+Set TICKETING_DATA_SOURCE=demo explicitly for the independent frontend prototype.
 
 ## Validate the frontend
 

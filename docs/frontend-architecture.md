@@ -1,5 +1,13 @@
 # Frontend Architecture
 
+## October 30 update
+
+Read-only API integration is implemented in src/lib/catalog.ts. Server routes
+now fetch events and seats from Spring Boot in API mode. Explicit demo mode
+retains the original prototype described below. See catalog-api.md for current
+configuration and verification limits. Checkout and reservation lookup remain
+disabled in API mode until Part 3.
+
 ## Purpose
 
 The frontend makes the reservation lifecycle visible before the backend is

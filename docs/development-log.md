@@ -1,5 +1,16 @@
 # Development Log
 
+## October 30, 2026: Part 2
+
+- Added PostgreSQL event/seat schema and opt-in local fixtures.
+- Added parameterized read queries, DTOs, service boundaries and three REST routes.
+- Five catalog API tests passed without starting Docker.
+- Connected frontend browsing and seat maps to the REST API through server fetches.
+- Added explicit demo mode, empty catalog handling, and retry UI.
+- Disabled prototype checkout in API mode until Part 3.
+- PostgreSQL migration/JDBC/runtime checks remain pending; no successful database
+  integration is claimed. Docker launch attempts remain prohibited.
+
 ## October 30, 2026: Part 1
 
 - Installed Temurin Java 25.0.5 and generated Spring Boot 4.1.2 with Maven Wrapper.

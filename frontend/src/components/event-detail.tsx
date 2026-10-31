@@ -4,13 +4,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeftIcon, ArrowRightIcon, CalendarIcon, ClockIcon, MapPinIcon, ShieldIcon } from "./icons";
 import { useTicketing } from "./ticketing-provider";
-import { formatCurrency, getSeats } from "@/lib/events";
-import type { TicketEvent } from "@/lib/types";
+import { formatCurrency } from "@/lib/events";
+import type { Seat, TicketEvent } from "@/lib/types";
 
-export function EventDetail({ event }: { event: TicketEvent }) {
+export function EventDetail({ event, seats, demoMode }: { event: TicketEvent; seats: Seat[]; demoMode: boolean }) {
   const router = useRouter();
   const { selectedSeats, toggleSeat, clearSeats, beginHold } = useTicketing();
-  const seats = getSeats(event.id);
   const selectedIds = selectedSeats[event.id] ?? [];
   const selected = selectedIds
     .map((id) => seats.find((seat) => seat.id === id))
@@ -18,7 +17,7 @@ export function EventDetail({ event }: { event: TicketEvent }) {
   const subtotal = selected.reduce((sum, seat) => sum + seat.price, 0);
 
   function continueToCheckout() {
-    if (!selected.length) return;
+    if (!selected.length || !demoMode) return;
     beginHold();
     router.push(`/checkout?event=${event.id}`);
   }
@@ -117,16 +116,16 @@ export function EventDetail({ event }: { event: TicketEvent }) {
               <div className="selection-empty"><span>Tap an available seat on the map</span><small>Selected seats will appear here.</small></div>
             )}
             <div className="selection-total"><span>Ticket subtotal</span><strong>{formatCurrency(subtotal)}</strong></div>
-            <button className="button button-primary button-full" disabled={!selected.length} onClick={continueToCheckout} type="button">
+            <button className="button button-primary button-full" disabled={!selected.length || !demoMode} onClick={continueToCheckout} type="button">
               Continue to checkout <ArrowRightIcon />
             </button>
-            <p className="secure-note"><ShieldIcon /> Seats are held for 7 minutes during checkout.</p>
+            <p className="secure-note"><ShieldIcon /> {demoMode ? "Demo checkout uses a 7-minute countdown." : "Reservations will open soon."}</p>
           </aside>
         </div>
 
         <div className="concurrency-note">
-          <span className="live-pill"><span className="pulse-dot" /> LIVE</span>
-          <div><strong>Availability changes in real time</strong><p>Another buyer may be viewing seat A17 right now. The final reservation is only secured when the server confirms your hold.</p></div>
+          <span className="live-pill">SEATS</span>
+          <div><strong>Availability at the time you opened this page</strong><p>Selecting a seat does not hold it. Another buyer may be viewing A17 right now.</p></div>
           <span className="demo-seat">A17</span>
         </div>
       </section>
